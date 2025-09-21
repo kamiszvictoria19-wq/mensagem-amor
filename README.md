@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>❤️MENSAGEM ESPECIAL❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #ffdde1;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    /* Corações caindo */
+    .heart {
+      position: absolute;
+      top: -10px;
+      font-size: 20px;
+      color: red;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0.5;
+      }
+    }
+
+    /* Coração principal */
+    .main-heart {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      background-color: red;
+      transform: rotate(-45deg);
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .main-heart::before,
+    .main-heart::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background-color: red;
+      border-radius: 50%;
+    }
+    .main-heart::before {
+      top: -60px;
+      left: 0;
+    }
+    .main-heart::after {
+      left: 60px;
+      top: 0;
+    }
+    .main-heart:hover {
+      transform: rotate(-45deg) scale(1.1);
+    }
+
+    .title {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #d60000;
+      text-shadow: 2px 2px 5px #fff;
+      text-align: center;
+    }
+
+    /* Pop-up */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: white;
+      padding: 30px;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+      z-index: 10;
+      transition: transform 0.4s ease;
+    }
+    .popup.active {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .popup::before {
+      content: "❤️";
+      font-size: 30px;
+      display: block;
+      animation: float 2s infinite alternate;
+    }
+    @keyframes float {
+      from { transform: translateY(-5px); }
+      to { transform: translateY(5px); }
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .close-btn:hover {
+      background: darkred;
+    }
+  </style>
+</head>
+<body>
+  <!-- Fundo corações -->
+  <script>
+    function createHearts() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHearts, 300);
+  </script>
+
+  <!-- Coração principal -->
+  <div class="main-heart" onclick="openPopup()"></div>
+  <div class="title">Clique neste coração, mensagem para você!</div>
+
+  <!-- Pop-up -->
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+    <p>
+      Oi princesa, passando para te lembrar que eu estou com saudades sem fim de você,  
+      daria tudo pra te dar um beijo bem gostoso, um abraço demorado e sentir seu cheiro que tanto amo!  
+      Ainda bem, que eu encontrei o amor em você quando eu menos esperava!  
+      Eu amo te amar meu amor! ❤️
+    </p>
+    <button class="close-btn" onclick="closePopup()">Fechar</button>
+  </div>
+
+  <script>
+    const popup = document.getElementById("popup");
+    const overlay = document.getElementById("overlay");
+
+    function openPopup() {
+      popup.classList.add("active");
+      overlay.classList.add("active");
+    }
+    function closePopup() {
+      popup.classList.remove("active");
+      overlay.classList.remove("active");
+    }
+  </script>
+</body>
+</html>
